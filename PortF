@@ -10,3 +10,18 @@ void PortF_Init ()
 	GPIO_PORTF_PUR_R = 0x10;
 	GPIO_PORTF_DATA_R &=~ 0x06;
 }
+void RLed () 
+{
+  GPIO_PORTF_DATA_R |= 0x02;
+}
+
+void BLed () 
+{
+	GPIO_PORTF_DATA_R &=~ 0x02;
+  GPIO_PORTF_DATA_R |= 0x04;
+}
+
+uint8_t ReadSW()
+{
+  return(GPIO_PORTF_DATA_R & 0x10);
+}
