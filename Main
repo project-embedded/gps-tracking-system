@@ -5,16 +5,19 @@ uint16_t calcDist (double x1, double y1, double x2, double y2)
 	return (uint16_t)(sqrt( pow(x1-x2, 2) + pow(y1-y2, 2) ) );
 }
 
+uint16_t dist = 0, on=1;
+double x1=0, y1=0, x2=50, y2=40;
+
 int main()
 {
-	PortB_Init ();
+  PortB_Init ();
   PortD_Init ();	
   PortF_Init ();
 //UART7_Init ();
 	
-  while(1)
+  while(ReadSW() != 0x00)
   {
-	  dist += calcDist(x1, y1, x2, y2);
+    dist += calcDist(x1, y1, x2, y2);
     WriteData_B (dist);
     if (dist >= 100)
     {
@@ -24,14 +27,9 @@ int main()
 		  on=0;
 	    } 
     }
-
-    if (ReadSW() == 0x00) 
-		{
-      BLed();
-	    break;
-    }
     x1=x2, y1=y2;
-		x2=350, y2=240;
+    x2=350, y2=240;
   }
+  BLed();
   return 0;
 }
