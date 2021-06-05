@@ -10,8 +10,8 @@ double x1=0, y1=0, x2=50, y2=40;
 
 int main()
 {
-  PortB_Init ();
-  PortD_Init ();	
+  PortA_Init ();
+  PortB_Init ();	
   PortF_Init ();
 //UART7_Init ();
 	
@@ -21,7 +21,7 @@ int main()
     WriteData_B (dist);
     if (dist >= 100)
     {
-	    WriteData_D (dist);
+	    WriteData_A (dist);
 	    while(on){
 		  RLed();
 		  on=0;
