@@ -19,6 +19,24 @@ void getLatLon(void){
 			for(i=1; i<=5; i++){
 				while(UART7_Read() != ',');
 				counter++;
+				if(counter == 2){
+					c = UART7_Read();
+					if(c == 'A') flag = 1;
+				}
+				if(counter == 3 && flag){
+					for(idx=0; idx<12; idx++){
+						c = UART7_Read();
+						if(c != ',') Lat[idx] = c;
+						else break;
+					}
+				}
+			        if(counter == 5 && flag){
+					for(idx=0; idx<12; idx++){
+					c = UART7_Read();
+					if(c != ',') Lon[idx] = c;
+					else break;
+				        }
+			        }
 		    }
 	    }
 	}
