@@ -25,7 +25,7 @@ uint8_t UART7_Available (void)
 {
     return ((UART7_FR_R & 0x10) == 0x10) ? 0 : 1; //flag values and RxFE bits
 }
-uint8_t UART7_Read (void)
+char UART7_Read (void)
 {
     while (UART7_Available() != 1); //zero means that fifo empty, no data available to read
     return (char)(UART7_DR_R & 0xFF);
