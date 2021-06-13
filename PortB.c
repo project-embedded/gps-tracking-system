@@ -1,6 +1,8 @@
 #include <stdint.h>
+#include "Functions.h"
+#include "tm4c123gh6pm.h"
 
-void PortB_Init ()
+void PortB_Init (void)
 { 
 	SYSCTL_RCGCGPIO_R |= 0x02;
 	while (!(SYSCTL_PRGPIO_R & 0x02));
