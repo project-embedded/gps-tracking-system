@@ -1,4 +1,8 @@
-void PortA_Init ()
+#include <stdint.h>
+#include "tm4c123gh6pm.h"
+#include "Functions.h"
+
+void PortA_Init (void)
 { 
 	SYSCTL_RCGCGPIO_R |= 0x01;
 	while (!(SYSCTL_PRGPIO_R & 0x01));
