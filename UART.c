@@ -1,6 +1,5 @@
 #include <stdint.h>
 #include "tm4c123gh6pm.h"
-#include "Functions.h"
 
 void UART0_Init (void)
 {
