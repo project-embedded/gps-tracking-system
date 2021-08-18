@@ -1,6 +1,6 @@
 #include <stdint.h>
-#include "Functions.h"
 #include "tm4c123gh6pm.h"
+
 void PortF_Init (void)
 { 
 	SYSCTL_RCGCGPIO_R |= 0x20;
@@ -15,13 +15,12 @@ void PortF_Init (void)
 }
 void RLed (void) 
 {
-  GPIO_PORTF_DATA_R |= 0x02;
+  GPIO_PORTF_DATA_R = 0x02;
 }
 
 void BLed (void) 
 {
-	GPIO_PORTF_DATA_R &=~ 0x02;
-  GPIO_PORTF_DATA_R |= 0x04;
+  GPIO_PORTF_DATA_R = 0x04;
 }
 
 uint8_t ReadSW(void)
