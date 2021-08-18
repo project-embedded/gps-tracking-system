@@ -1,46 +1,15 @@
 #include <math.h>
 #include <stdint.h>
-#include <stdlib.h>
 #include "tm4c123gh6pm.h"
 #include "Functions.h"
 
-uint8_t i, flag, counter, idx;
-uint16_t dist = 0, on=1;
-char c, Lat[12], Lon[12];
+uint8_t i, flag, counter, idx, on=1;
+uint16_t dist = 0;
+char c, Lat[14], Lon[14];
 float x1, y1, x2, y2, latValue, lonValue;
 
-void getLatLon(void){
-	while(1){
-		while(UART7_Read() != '$');
-		if(flag) break;
-		for(i=0; i<3; i++) c = UART7_Read();
-		if(c == 'R'){
-			counter = 0;
-			for(i=1; i<=5; i++){
-				while(UART7_Read() != ',');
-				counter++;
-				if(counter == 2){
-					c = UART7_Read();
-					if(c == 'A') flag = 1;
-				}
-				if(counter == 3 && flag){
-					for(idx=0; idx<12; idx++){
-						c = UART7_Read();
-						if(c != ',') Lat[idx] = c;
-						else break;
-					}
-				}
-			        if(counter == 5 && flag){
-					for(idx=0; idx<12; idx++){
-					c = UART7_Read();
-					if(c != ',') Lon[idx] = c;
-					else break;
-				        }
-			        }
-		    }
-	    }
-	}
-}
+void getLatLon(void);
+void getArray(char *L);
 
 uint16_t calcDist (float x1, float y1, float x2, float y2)
 {
@@ -85,4 +54,39 @@ int main()
   }
   BLed();
   return 0;
+}
+
+
+void getLatLon(void){
+	while(1){
+		while(UART7_Read() != '$');
+		if(flag) break;
+		
+		for(i=0; i<3; i++) c = UART7_Read();
+		if(c == 'R'){
+			counter = 0;
+			for(i=1; i<=5; i++){
+				while(UART7_Read() != ',');
+				counter++;
+				if(counter == 2){
+					c = UART7_Read();
+					if(c == 'A') flag = 1;
+				}
+				if(counter == 3 && flag) getArray(Lat);
+			 	if(counter == 5 && flag) getArray(Lon);
+    		} }
+} }
+
+
+void getArray(char *L)
+{
+	for(idx=0; idx<14; idx++){
+		c = UART7_Read();
+		if(c != ',') 
+			L[idx] = c;
+		else{
+			L[idx] = '\0';
+			break;
+		}
+	}
 }
