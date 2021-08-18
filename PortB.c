@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include "Functions.h"
 #include "tm4c123gh6pm.h"
 
 void PortB_Init (void)
